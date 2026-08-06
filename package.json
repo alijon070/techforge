@@ -5,7 +5,7 @@
   "main": "src/server.ts",
   "scripts": {
     "start": "ts-node src/server.ts",
-    "start:dev": "nodeman --exec ts-node src/server.ts",
+    "start:dev": "nodemon --exec ts-node src/server.ts",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,9 +15,14 @@
   "author": "\"ALBERT\"",
   "license": "ISC",
   "devDependencies": {
-    "nodeman": "^1.1.2",
+    "nodemon": "^3.1.14",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^7.0.2"
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "mongodb": "^7.5.0",
+    "mongoose": "^9.9.1"
   }
 }
