@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 import { T } from "../libs/types/common";
 import MemberService from "../models/Member.service";
+import { MemberInput } from "../libs/types/member";
+import { MemberType } from "../libs/enums/member.enum";
+
+const memberService = new MemberService();
 
 const storeController: T = {};
 
@@ -38,11 +42,18 @@ storeController.getSignup = (req: Request, res: Response) => {
   }
 };
 
-storeController.processSignup = (req: Request, res: Response) => {
+storeController.processSignup = async (req: Request, res: Response) => {
   try {
-    res.send("SignUp Page");
+    console.log("processSignup");
+    console.log("body:", req.body);
+    const newMember: MemberInput = req.body;
+    newMember.memberType = MemberType.STORE;
+    const result = await memberService.processSignup(newMember);
+
+    res.send(result);
   } catch (err) {
     console.log("Error, getSignup", err);
+    res.send(err);
   }
 };
 

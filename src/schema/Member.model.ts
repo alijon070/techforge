@@ -1,9 +1,10 @@
 import mongoose, { Schema } from "mongoose";
 import { MemberStatus, MemberType } from "../libs/enums/member.enum";
+import { Member } from "../libs/types/member";
 
-const memberSchema = new Schema(
+const memberSchema = new Schema<Member>(
   {
-    memberTypes: {
+    memberType: {
       type: String,
       enum: MemberType,
       default: MemberType.USER,
@@ -53,4 +54,4 @@ const memberSchema = new Schema(
   { timestamps: true },
 );
 
-export default mongoose.model("Member", memberSchema);
+export default mongoose.model<Member>("Members", memberSchema);
