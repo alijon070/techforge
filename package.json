@@ -14,19 +14,21 @@
   ],
   "author": "\"ALBERT\"",
   "license": "ISC",
-  "devDependencies": {
-    "@types/express": "^4.17.3",
-    "nodemon": "^3.1.14",
-    "ts-node": "^10.9.2",
-    "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.9.3"
-  },
   "dependencies": {
-    "@types/morgan": "^1.9.10",
+    "bcryptjs": "^3.0.3",
     "dotenv": "^17.4.2",
     "express": "^4.17.3",
     "mongodb": "^7.5.0",
     "mongoose": "^9.9.1",
     "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.3",
+    "nodemon": "^3.1.14",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.9.3",
+    "@types/bcryptjs": "^3.0.0",
+    "@types/morgan": "^1.9.10"
   }
 }
