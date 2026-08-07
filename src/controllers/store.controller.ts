@@ -2,17 +2,19 @@ import { Request, Response } from "express";
 import { T } from "../libs/types/common";
 import MemberService from "../models/Member.service";
 
-const shopController: T = {};
+const storeController: T = {};
 
-shopController.goHome = (req: Request, res: Response) => {
+storeController.goHome = (req: Request, res: Response) => {
   try {
+    console.log("goHome");
+
     res.send("Home Page");
   } catch (err) {
     console.log("Error, goHome", err);
   }
 };
 
-shopController.getLogin = (req: Request, res: Response) => {
+storeController.getLogin = (req: Request, res: Response) => {
   try {
     res.send("Login Page");
   } catch (err) {
@@ -20,7 +22,7 @@ shopController.getLogin = (req: Request, res: Response) => {
   }
 };
 
-shopController.getSignup = (req: Request, res: Response) => {
+storeController.getSignup = (req: Request, res: Response) => {
   try {
     res.send("SignUp Page");
   } catch (err) {
@@ -28,4 +30,4 @@ shopController.getSignup = (req: Request, res: Response) => {
   }
 };
 
-export default shopController;
+export default storeController;
