@@ -18,28 +18,6 @@ storeController.goHome = (req: Request, res: Response) => {
   }
 };
 
-storeController.getLogin = (req: Request, res: Response) => {
-  try {
-    res.send("Login Page");
-  } catch (err) {
-    console.log("Error, getLogin", err);
-  }
-};
-
-storeController.processLogin = async (req: Request, res: Response) => {
-  try {
-    console.log("processLogin");
-    const input: LoginInput = req.body;
-
-    const result = await memberService.processLogin(input);
-
-    res.send(result);
-  } catch (err) {
-    console.log("Error, getLogin", err);
-    res.send(err);
-  }
-};
-
 storeController.getSignup = (req: Request, res: Response) => {
   try {
     res.send("SignUp Page");
@@ -59,6 +37,28 @@ storeController.processSignup = async (req: Request, res: Response) => {
     res.send(result);
   } catch (err) {
     console.log("Error, getSignup", err);
+    res.send(err);
+  }
+};
+
+storeController.getLogin = (req: Request, res: Response) => {
+  try {
+    res.send("Login Page");
+  } catch (err) {
+    console.log("Error, getLogin", err);
+  }
+};
+
+storeController.processLogin = async (req: Request, res: Response) => {
+  try {
+    console.log("processLogin");
+    const input: LoginInput = req.body;
+
+    const result = await memberService.processLogin(input);
+
+    res.send(result);
+  } catch (err) {
+    console.log("Error, getLogin", err);
     res.send(err);
   }
 };
