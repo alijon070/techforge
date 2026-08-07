@@ -22,7 +22,23 @@ storeController.getLogin = (req: Request, res: Response) => {
   }
 };
 
+storeController.processLogin = (req: Request, res: Response) => {
+  try {
+    res.send("Login Page");
+  } catch (err) {
+    console.log("Error, getLogin", err);
+  }
+};
+
 storeController.getSignup = (req: Request, res: Response) => {
+  try {
+    res.send("SignUp Page");
+  } catch (err) {
+    console.log("Error, getSignup", err);
+  }
+};
+
+storeController.processSignup = (req: Request, res: Response) => {
   try {
     res.send("SignUp Page");
   } catch (err) {
