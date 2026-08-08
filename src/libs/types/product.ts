@@ -11,7 +11,7 @@ export interface Product {
   productCategory: ProductCategory;
   productDesc?: string;
   productImages: string[];
-  productSpecifications: string;
+  productSpecifications: Record<string, any>;
   productViews: number;
   productLikes: number;
 }
@@ -26,7 +26,22 @@ export interface ProductInput {
   productCategory: ProductCategory;
   productDesc?: string;
   productImages?: string[];
-  productSpecifications: string;
+  productSpecifications: Record<string, any>;
+  productViews?: number;
+  productLikes?: number;
+}
+
+export interface ProductUpdateInput {
+  _id: ObjectId;
+  productStatus?: ProductStatus;
+  productName?: string;
+  productPrice?: number;
+  productStock?: number;
+  productBrand?: string;
+  productCategory?: ProductCategory;
+  productDesc?: string;
+  productImages?: string[];
+  productSpecifications?: Record<string, any>;
   productViews?: number;
   productLikes?: number;
 }

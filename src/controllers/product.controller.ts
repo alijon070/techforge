@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { T } from "../libs/types/common";
 import Errors, { HttpCode, Message } from "../libs/types/Errors";
-import { ProductInput } from "../libs/types/product";
+import { ProductInput, ProductUpdateInput } from "../libs/types/product";
 import ProductService from "../models/Product.service";
 import { AdminRequest } from "../libs/types/member";
 
@@ -48,9 +48,12 @@ productController.createNewProduct = async (
   }
 };
 
-productController.updateProduct = async (req: Request, res: Response) => {
+productController.updateChosenProduct = async (req: Request, res: Response) => {
   try {
     console.log("updateProduct");
+    const id = req.params.id;
+    const result = await productService.updateChosenProduct(id, req.body);
+    res.status(HttpCode.OK).json({ data: result });
   } catch (err) {
     console.log("Error, updateProduct", err);
     if (err instanceof Errors) res.status(err.code).json(err);

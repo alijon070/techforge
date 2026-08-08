@@ -42,7 +42,7 @@ routerAdmin.post(
 routerAdmin.post(
   "/product/:id",
   storeController.verifyRestaurant,
-  productController.createNewProduct,
+  productController.updateChosenProduct,
 );
 
 /** Member **/
