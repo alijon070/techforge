@@ -20,11 +20,23 @@ routerAdmin.get("/check-me", storeController.checkAuthSession);
 
 /** Products **/
 
-routerAdmin.get("/product/all", productController.getAllProduct);
+routerAdmin.get(
+  "/product/all",
+  storeController.verifyRestaurant,
+  productController.getAllProduct,
+);
 
-routerAdmin.post("/product/create", productController.createNewProduct);
+routerAdmin.post(
+  "/product/create",
+  storeController.verifyRestaurant,
+  productController.createNewProduct,
+);
 
-routerAdmin.post("/product/:id", productController.createNewProduct);
+routerAdmin.post(
+  "/product/:id",
+  storeController.verifyRestaurant,
+  productController.createNewProduct,
+);
 
 /** Member **/
 
