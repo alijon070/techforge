@@ -6,9 +6,9 @@ import morgan from "morgan";
 import { MORGAN_FORMAT } from "./libs/types/config";
 
 import session from "express-session";
-import ConnectMongoDBSession from "connect-mongodb-session";
+import ConnectMongoDB from "connect-mongodb-session";
 
-const MongoDBStore = ConnectMongoDBSession(session);
+const MongoDBStore = ConnectMongoDB(session);
 const store = new MongoDBStore({
   uri: String(process.env.MONGO_URL),
   collection: "sessions",
@@ -29,8 +29,8 @@ app.use(
       maxAge: 1000 * 3600 * 3,
     },
     store: store,
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
   }),
 );
 

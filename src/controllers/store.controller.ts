@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import { T } from "../libs/types/common";
 import MemberService from "../models/Member.service";
-import { LoginInput, MemberInput } from "../libs/types/member";
+import { AdminRequest, LoginInput, MemberInput } from "../libs/types/member";
 import { MemberType } from "../libs/enums/member.enum";
+import Errors, { Message } from "../libs/types/Errors";
 
 const memberService = new MemberService();
 
@@ -22,10 +23,11 @@ storeController.getSignup = (req: Request, res: Response) => {
     res.render("signup");
   } catch (err) {
     console.log("Error, getSignup", err);
+    res.redirect("/admin");
   }
 };
 
-storeController.processSignup = async (req: Request, res: Response) => {
+storeController.processSignup = async (req: AdminRequest, res: Response) => {
   try {
     console.log("processSignup");
     console.log("body:", req.body);
@@ -33,10 +35,19 @@ storeController.processSignup = async (req: Request, res: Response) => {
     newMember.memberType = MemberType.STORE;
     const result = await memberService.processSignup(newMember);
 
-    res.send(result);
+    console.log(req.session);
+    req.session.member = result;
+    req.session.save(function () {
+      res.send(result);
+    });
+    console.log(req.session.member);
   } catch (err) {
     console.log("Error, getSignup", err);
-    res.send(err);
+    const message =
+      err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
+    res.send(
+      `<script> alert("${message}"); window.lacation.replace('admin/signup) </script>`,
+    );
   }
 };
 
@@ -45,17 +56,47 @@ storeController.getLogin = (req: Request, res: Response) => {
     res.send("Login Page");
   } catch (err) {
     console.log("Error, getLogin", err);
+    res.redirect("/admin");
   }
 };
 
-storeController.processLogin = async (req: Request, res: Response) => {
+storeController.processLogin = async (req: AdminRequest, res: Response) => {
   try {
     console.log("processLogin");
     const input: LoginInput = req.body;
 
     const result = await memberService.processLogin(input);
 
-    res.send(result);
+    req.session.member = result;
+    req.session.save(function () {
+      res.send(result);
+    });
+  } catch (err) {
+    console.log("Error, getLogin", err);
+    const message =
+      err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
+    res.send(
+      `<script> alert("${message}"); window.lacation.replace('admin/login) </script>`,
+    );
+  }
+};
+
+storeController.getLogout = (req: Request, res: Response) => {
+  try {
+    req.session.destroy(function () {
+      res.redirect("/admin");
+    });
+  } catch (err) {
+    console.log("Error, getLogout", err);
+    res.redirect("/admin");
+  }
+};
+
+storeController.checkAuthSession = async (req: AdminRequest, res: Response) => {
+  try {
+    console.log("checkAuthSession");
+    if (req.session?.member) res.send(`Hi, ${req.session.member.memberNick}`);
+    else res.send(Message.NOT_AUTHENTICATED);
   } catch (err) {
     console.log("Error, getLogin", err);
     res.send(err);
