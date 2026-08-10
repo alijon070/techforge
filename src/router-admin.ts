@@ -46,5 +46,16 @@ routerAdmin.post(
 );
 
 /** Member **/
+routerAdmin.get(
+  "/user/all",
+  storeController.verifyRestaurant,
+  storeController.getUsers,
+);
+
+routerAdmin.post(
+  "/user/edit",
+  storeController.verifyRestaurant,
+  storeController.updateChosenUser,
+);
 
 export default routerAdmin;

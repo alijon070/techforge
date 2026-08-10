@@ -96,6 +96,31 @@ storeController.getLogout = (req: Request, res: Response) => {
   }
 };
 
+storeController.getUsers = async (req: Request, res: Response) => {
+  try {
+    console.log("getUsers");
+    const data = await memberService.getUsers();
+    res.render("users", { users: data });
+  } catch (err) {
+    console.log("Error, getUsers", err);
+    if (err instanceof Errors) res.status(err.code).json(err);
+    else res.status(Errors.standard.code).json(Errors.standard);
+  }
+};
+
+storeController.updateChosenUser = async (req: Request, res: Response) => {
+  try {
+    console.log("updateChosenUser");
+    const id = req.params.id;
+    const data = await memberService.updateChosenUser(req.body);
+    res.status(HttpCode.OK).json({ data: data });
+  } catch (err) {
+    console.log("Error, updateChosenUser", err);
+    if (err instanceof Errors) res.status(err.code).json(err);
+    else res.status(Errors.standard.code).json(Errors.standard);
+  }
+};
+
 storeController.checkAuthSession = async (req: AdminRequest, res: Response) => {
   try {
     console.log("checkAuthSession");

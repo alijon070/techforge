@@ -1,6 +1,12 @@
 import { MemberType } from "../libs/enums/member.enum";
+import { shapeIntoMongooseObjectId } from "../libs/types/config";
 import Errors, { HttpCode, Message } from "../libs/types/Errors";
-import { LoginInput, Member, MemberInput } from "../libs/types/member";
+import {
+  LoginInput,
+  Member,
+  MemberInput,
+  MemberUpdateInput,
+} from "../libs/types/member";
 import MemberModel from "../schema/Member.model";
 import * as bcrypt from "bcryptjs";
 
@@ -94,6 +100,34 @@ class MemberService {
       throw new Errors(HttpCode.NOT_FOUND, Message.SOMETHING_WENT_WRONG);
 
     return result;
+  }
+
+  public async getUsers(): Promise<Member[]> {
+    try {
+      const result = await this.memberModel
+        .find({ memberType: MemberType.USER })
+        .exec();
+      if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+      return result;
+    } catch (err) {
+      console.error("Error, model: getUsers", err);
+      throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+    }
+  }
+
+  public async updateChosenUser(input: MemberUpdateInput): Promise<Member> {
+    try {
+      const memberId = shapeIntoMongooseObjectId(input._id);
+      const result = await this.memberModel
+        .findOneAndUpdate({ _id: memberId }, input, { new: true })
+        .exec();
+      if (!result)
+        throw new Errors(HttpCode.NOT_MODIFIED, Message.NO_DATA_FOUND);
+      return result;
+    } catch (err) {
+      console.error("Error, model: updateChosenUser", err);
+      throw new Errors(HttpCode.BAD_REQUEST, Message.UPDATE_FAILED);
+    }
   }
 }
 

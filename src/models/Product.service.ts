@@ -16,6 +16,17 @@ class ProductService {
 
   /** SSR **/
 
+  public async getAllProduct(): Promise<Product[]> {
+    try {
+      const result = await this.productModel.find().exec();
+      if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+      return result;
+    } catch (err) {
+      console.error("Error, model: updateChosenProduct", err);
+      throw new Errors(HttpCode.BAD_REQUEST, Message.UPDATE_FAILED);
+    }
+  }
+
   public async createNewProduct(input: ProductInput): Promise<Product> {
     try {
       const product = await this.productModel.create(input);
