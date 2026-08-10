@@ -30,12 +30,12 @@ storeController.getSignup = (req: Request, res: Response) => {
 storeController.processSignup = async (req: AdminRequest, res: Response) => {
   try {
     console.log("processSignup");
-    const file = req.file;
-    if (!file)
-      throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG);
+    // const file = req.file;
+    // if (!file)
+    //   throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG);
     console.log("body:", req.body);
     const newMember: MemberInput = req.body;
-    newMember.memberImage = file?.path;
+    // newMember.memberImage = file?.path;
     newMember.memberType = MemberType.STORE;
     const result = await memberService.processSignup(newMember);
 

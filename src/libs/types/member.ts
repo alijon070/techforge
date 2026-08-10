@@ -10,6 +10,7 @@ export interface Member {
   memberNick: string;
   memberPhone: string;
   memberPassword: string;
+  memberEmail: string;
   memberAdress?: string;
   memberDesc?: string;
   memberImage?: string;
@@ -24,6 +25,7 @@ export interface MemberInput {
   memberNick: string;
   memberPhone: string;
   memberPassword: string;
+  memberEmail: string;
   memberAdress?: string;
   memberDesc?: string;
   memberImage?: string;
@@ -36,6 +38,7 @@ export interface MemberUpdateInput {
   memberNick?: string;
   memberPhone?: string;
   memberPassword?: string;
+  memberEmail: string;
   memberAdress?: string;
   memberDesc?: string;
   memberImage?: string;

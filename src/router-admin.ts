@@ -16,7 +16,7 @@ routerAdmin
 
   .post(
     "/signup",
-    makeUploader("members").single("memberImage"),
+    // makeUploader("members").single("memberImage"),
     storeController.processSignup,
   );
 

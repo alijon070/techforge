@@ -34,6 +34,11 @@ const memberSchema = new Schema<Member>(
       required: true,
     },
 
+    memberEmail: {
+      type: String,
+      required: true,
+    },
+
     memberAdress: {
       type: String,
     },
