@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { T } from "../libs/types/common";
 import Errors, { HttpCode, Message } from "../libs/types/Errors";
-import { ProductInput, ProductUpdateInput } from "../libs/types/product";
+import { ProductInput } from "../libs/types/product";
 import ProductService from "../models/Product.service";
 import { AdminRequest } from "../libs/types/member";
 

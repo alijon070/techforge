@@ -19,25 +19,6 @@ function validateForm() {
   } else return true;
 }
 
-// function previewFileHandler(input, order) {
-//   const imgClassName = input.className,
-//     file = $(`.${imgClassName}`).get(0).files[0],
-//     fileType = file["type"],
-//     validImageType = ["image/jpg", "image/jpeg", "image/png"];
-
-//   if (!validImageType.includes(fileType)) {
-//     alert("Please insert only jpeg, jpg and png!");
-//   } else {
-//     if (file) {
-//       const reader = new FileReader();
-//       reader.onload = function () {
-//         $(`#image-section-${order}`).attr("src", reader.result);
-//       };
-//       reader.readAsDataURL(file);
-//     }
-//   }
-// }
-
 function previewFileHandler(input) {
   const order = input.dataset.order;
   const file = input.files[0];
