@@ -1,6 +1,7 @@
 export enum ProductStatus {
   PAUSE = "PAUSE",
   PROCESS = "PROCESS",
+  SOLD_OUT = "SOLD_OUT",
   DELIVERED = "DELIVERED",
 }
 

@@ -17,7 +17,7 @@ routerAdmin
   .post(
     "/signup",
     // makeUploader("members").single("memberImage"),
-    storeController.processSignup,
+    storeController.processSignup
   );
 
 routerAdmin.get("/logout", storeController.getLogout);
@@ -29,33 +29,39 @@ routerAdmin.get("/check-me", storeController.checkAuthSession);
 routerAdmin.get(
   "/product/all",
   storeController.verifyRestaurant,
-  productController.getAllProduct,
+  productController.getAllProduct
+);
+
+routerAdmin.get(
+  "/product/newProduct",
+  storeController.verifyRestaurant,
+  productController.getNewProduct
 );
 
 routerAdmin.post(
   "/product/create",
   storeController.verifyRestaurant,
   makeUploader("products").array("productImages", 5),
-  productController.createNewProduct,
+  productController.createNewProduct
 );
 
 routerAdmin.post(
   "/product/:id",
   storeController.verifyRestaurant,
-  productController.updateChosenProduct,
+  productController.updateChosenProduct
 );
 
 /** Member **/
 routerAdmin.get(
   "/user/all",
   storeController.verifyRestaurant,
-  storeController.getUsers,
+  storeController.getUsers
 );
 
 routerAdmin.post(
   "/user/edit",
   storeController.verifyRestaurant,
-  storeController.updateChosenUser,
+  storeController.updateChosenUser
 );
 
 export default routerAdmin;

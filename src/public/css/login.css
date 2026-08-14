@@ -6,79 +6,54 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background: linear-gradient(-45deg, #071a30, #0b2947, #030711, #071426);
+
+  background-size: 200% 200%;
+
+  animation: gradient 15s ease infinite;
+  -webkit-animation: gradient 15s ease infinite;
   animation: gradient 15s ease infinite;
   -webkit-animation: gradient 15s ease infinite;
   background-size: 200% 200%;
 }
 
-.login-container a {
+/* .signup-container a {
   text-decoration: none;
-  color: black;
+  color: white;
 }
 
-.login-container .login-frame {
+.signup-container .signup-frame {
   position: relative;
   width: 420px;
   height: auto;
   display: flex;
   flex-direction: column;
-  border-radius: 10px;
-  background: #ffffff;
+  border-radius: 20px;
+  background: rgba(8, 18, 34, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
+  opacity: 10;
   padding: 25px;
 }
 
-.login-container .login-frame .login-top {
+.signup-container .signup-frame .sign-input-frame {
   position: relative;
   width: 100%;
   height: auto;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
-.login-container .login-top span {
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 30px;
-  line-height: 34px;
-}
-
-.login-container .login-top p {
-  margin-top: 15px;
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 26px;
-}
-
-.login-container .login-top div {
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 26px;
-}
-
-.login-container .login-frame .login-input-frame {
-  position: relative;
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-}
-
-.login-container .login-input-container {
+.signup-container .sign-input-frame .sign-up-frame {
   position: relative;
   margin-top: 15px;
-  width: 100%;
+  width: 49%;
   height: auto;
   display: flex;
   flex-direction: column;
 }
 
-.login-container .login-input-container label {
+.signup-container .sign-up-frame label {
   margin-bottom: 0px;
   font-family: "Poppins";
   font-style: normal;
@@ -87,7 +62,7 @@
   line-height: 18px;
 }
 
-.login-container .login-input-container input {
+.signup-container .sign-up-frame input {
   position: relative;
   margin-top: 10px;
   padding-left: 20px;
@@ -98,26 +73,107 @@
   border-radius: 8px;
 }
 
-.login-container .login-frame .login-btn {
+.signup-container .media-frame {
   position: relative;
-  margin-top: 25px;
+  margin-top: 15px;
   width: 100%;
-  height: 70px;
+  height: 250px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.signup-container .media-frame .upload-img-frame {
+  position: relative;
+  width: 275px;
+  height: 93%;
+  display: flex;
+  border-radius: 15px;
+}
+
+.signup-container .upload-img-frame .delete-img {
+  position: absolute;
+  width: 37px;
+  height: 37px;
+  right: 5%;
+  top: 5%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #33a0ff;
-  border-radius: 10px;
-  font-family: "Nunito";
+  background: #ffffff;
+  box-shadow: 0px 6px 15px rgba(64, 79, 104, 0.05);
+  border-radius: 8px;
+}
+
+.signup-container .media-frame .upload-container {
+  position: relative;
+  margin-left: 30px;
+  width: 75%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-container .media-text {
+  font-family: "GT Walsheim Pro";
   font-style: normal;
-  font-weight: 800;
-  font-size: 24px;
-  line-height: 33px;
-  letter-spacing: -0.02em;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 18px;
+  color: #140342;
+}
+
+.signup-container .file-box input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.signup-container .file-box label {
+  margin-bottom: 0px;
+  width: 138px;
+  height: 55px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #6a7a99;
+  border-radius: 0px 8px 8px 0px;
+  font-family: "GT Walsheim Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 26px;
   color: #ffffff;
 }
 
-/* Background animation */
+.signup-container .file-box .upload-name {
+  position: relative;
+  padding: 20px;
+  width: 85%;
+  height: 55px;
+  display: flex;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 8px 0px 0px 8px;
+}
+
+.signup-container .thumbnail-desc {
+  margin-top: 25px;
+  font-family: "GT Walsheim Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 26px;
+  color: #4f547b;
+}
+  */
+
 @-webkit-keyframes gradient {
   0% {
     background-position: 0% 50%;
@@ -140,4 +196,169 @@
   100% {
     background-position: 0% 50%;
   }
+}
+
+.login-container .login-frame {
+  width: 460px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+
+  background: rgba(7, 16, 31, 0.42);
+
+  border: 1px solid rgba(56, 189, 248, 0.14);
+  border-radius: 20px;
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.login-top {
+  margin-bottom: 30px;
+}
+
+.login-top a {
+  color: #38bdf8;
+
+  text-decoration: none;
+}
+
+.login-top .login-label {
+  color: #38bdf8;
+
+  font-family: monospace;
+  font-size: 13px;
+  font-weight: 700;
+
+  letter-spacing: 3px;
+}
+
+.login-top h2 {
+  margin: 8px 0;
+
+  color: #e8f1ff;
+
+  font-size: 28px;
+}
+
+.login-top p {
+  margin: 0;
+
+  color: #7890ad;
+
+  font-size: 14px;
+}
+
+.log-in-frame {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  margin-bottom: 20px;
+}
+
+.log-in-frame label {
+  color: #b8c9dc;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.log-in-frame input {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 13px 14px;
+
+  color: #e8f1ff;
+
+  background: rgba(3, 9, 20, 0.65);
+
+  border: 1px solid #17304d;
+  border-radius: 8px;
+
+  outline: none;
+
+  transition: 0.2s ease;
+}
+
+.log-in-frame input::placeholder {
+  color: #536b85;
+}
+
+.log-in-frame input:focus {
+  border-color: #38bdf8;
+
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.08);
+}
+
+.login-password-row .login-frame {
+  width: 50%;
+}
+
+.login-password-row {
+  display: flex;
+  gap: 15px;
+}
+
+.login-password-row .lo-gin-frame {
+  width: 50%;
+}
+
+.login-btn {
+  width: 100%;
+
+  margin-top: 10px;
+  padding: 14px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: linear-gradient(90deg, #1683ff, #38bdf8);
+
+  color: #030711;
+
+  font-family: monospace;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 25px rgba(56, 189, 248, 0.25);
+}
+
+.login-signup {
+  margin-top: 22px;
+
+  text-align: center;
+
+  color: #7890ad;
+
+  font-size: 14px;
+}
+
+.login-signup a {
+  margin-left: 5px;
+
+  color: #38bdf8;
+
+  text-decoration: none;
+}
+
+.login-signup a:hover {
+  text-decoration: underline;
 }

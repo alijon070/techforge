@@ -39,7 +39,7 @@ class ProductService {
 
   public async updateChosenProduct(
     id: string,
-    input: ProductUpdateInput,
+    input: ProductUpdateInput
   ): Promise<Product> {
     try {
       const productId = shapeIntoMongooseObjectId(id);

@@ -6,12 +6,32 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(-45deg, #110303bf, #e37813, #011c1aba, #968383);
+  background: #030711;
 }
 
 .products-container a {
   text-decoration: none;
   color: #000000;
+}
+
+.products-container::before {
+  content: "";
+
+  position: fixed;
+  inset: -30%;
+
+  z-index: 0;
+  pointer-events: none;
+
+  background: linear-gradient(-45deg, #071a30, #0b2947, #030711, #071426);
+
+  background-size: 200% 200%;
+
+  animation: gradient 15s ease infinite;
+  -webkit-animation: gradient 15s ease infinite;
+  animation: gradient 15s ease infinite;
+  -webkit-animation: gradient 15s ease infinite;
+  background-size: 200% 200%;
 }
 
 .products-container .nav-item a {
@@ -68,8 +88,7 @@
   width: 100%;
   height: auto;
 
-  /* TODO: UNCOMMENT */
-  /*display: none;*/
+  display: none;
   flex-direction: column;
   align-items: center;
 }
@@ -364,4 +383,29 @@ table th {
 
 .products-container .slider.round:before {
   border-radius: 50%;
+}
+
+/* Background animation */
+@-webkit-keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

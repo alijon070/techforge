@@ -1,0 +1,91 @@
+<div class="navigation-menu">
+  <div class="anim-container">
+    <div class="anim">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200">
+        <defs>
+          <pattern
+            id="techforgePattern"
+            patternUnits="userSpaceOnUse"
+            width="1000"
+            height="200"
+          ></pattern>
+        </defs>
+
+        <text x="50" y="150" font-size="120" fill="url(#techforgePattern)">
+          TECHFORGE
+        </text>
+      </svg>
+    </div>
+  </div>
+  <div class="nav-butt">
+    <div>
+      <button
+        class="btn btn-lg nav-btn"
+        data-path="/admin"
+        onclick="window.location.href = '/admin'"
+      >
+        Home
+      </button>
+    </div>
+    <div>
+      <% if(!member) { %>
+      <button
+        class="btn btn-lg nav-btn"
+        data-path="/admin/signup"
+        onclick="window.location.href = '/admin/signup'"
+      >
+        Sign up
+      </button>
+    </div>
+    <div>
+      <button
+        class="btn btn-lg nav-btn"
+        data-path="/admin/login"
+        onclick="window.location.href = '/admin/login'"
+      >
+        Login
+      </button>
+      <% } else { %>
+    </div>
+    <div>
+      <button
+        class="btn btn-lg nav-btn"
+        data-path="/admin/product/all"
+        onclick="window.location.href = '/admin/product/all'"
+      >
+        Products
+      </button>
+    </div>
+    <div>
+      <button
+        class="btn btn-lg nav-btn"
+        data-path="/admin/product/newProduct"
+        onclick="window.location.href = '/admin/product/newProduct'"
+      >
+        New Product
+      </button>
+    </div>
+    <div>
+      <button
+        class="btn btn-lg nav-btn"
+        data-path="/admin/user/all"
+        onclick="window.location.href = '/admin/user/all'"
+      >
+        Users
+      </button>
+    </div>
+    <div>
+      <button
+        type="button"
+        class="btn btn-lg nav-btn"
+        data-path="/admin/logout"
+        onclick="window.location.href = '/admin/logout'"
+      >
+        Logout
+      </button>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>

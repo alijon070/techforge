@@ -1,0 +1,448 @@
+<!-- <%- include('includes/header') %>
+<link rel="stylesheet" type="text/css" href="/css/newproduct.css" />
+
+
+
+<body>
+    <div class="products-container">
+    <form onsubmit="return validateForm()" action="/admin/product/create" method="POST" class="dish-container"
+            enctype="multipart/form-data">
+            <div class="long-input" style="display: flex; align-items: center">
+              <span class="new-dish-txt">NEW PRODUCT DETAIL</span>
+            </div>
+            <div class="login-input-frame">
+              <div class="long-input">
+                <label>Product Name</label>
+                <input type="text" placeholder="Name" name="productName" class="product-name" />
+              </div>
+              <input name="productStatus" value="PAUSE" class="product-status" hidden />
+            </div>
+            <div class="half-input-frame">
+              <div class="half-input">
+                <label>Product Price</label>
+                <input type="number" placeholder="Price" name="productPrice" class="product-price" />
+              </div>
+              <div class="half-input">
+                <label>Product Left Counts</label>
+                <input type="number" placeholder="Counts" name="productLeftCount" class="product-left-count" />
+              </div>
+            </div>
+            <div class="half-input-frame">
+              <div class="half-input">
+                <label>Product Type</label>
+                <select class="product-collection" name="productCollection">
+                  <option value="DISH" selected>Dish</option>
+                  <option value="SALAD">Salad</option>
+                  <option value="DESSERT">Dessert</option>
+                  <option value="DRINK">Drink</option>
+                  <option value="OTHER">Other</option>
+                </select>
+              </div>
+
+              <div class="half-input" id="product-collection">
+                <label>Dish Volume</label>
+                <select class="product-size" name="productSize">
+                  <option value="SMALL">Small</option>
+                  <option value="NORMAL" selected>Normal</option>
+                  <option value="LARGE">Large</option>
+                  <option value="SET">Set</option>
+                </select>
+              </div>
+
+              <div class="half-input" id="product-volume" style="display: none">
+                <label>Drink Volume</label>
+                <select class="product-volume" name="productVolume">
+                  <option value="0.5">0,5 liters</option>
+                  <option value="1" selected>1 liters</option>
+                  <option value="1.2">1,2 liters</option>
+                  <option value="1.5">1,5 liters</option>
+                  <option value="2">2 liters</option>
+                </select>
+              </div>
+            </div>
+            <div class="long-input">
+              <label>Product Description</label>
+              <textarea name="productDesc" class="product-desc"></textarea>
+            </div>
+
+            <div class="img-frame">
+              <label>Product Images</label>
+              <div class="media-frame">
+                <div class="upload-img-box">
+                  <img src="/img/upload.svg" class="1" id="image-section-1" />
+                  <input type="file" id="file" name="productImages" class="image-one" required
+                    onchange="previewFileHandler(this, 1)" />
+                </div>
+                <div class="upload-img-box">
+                  <img src="/img/upload.svg" class="2" id="image-section-2" />
+                  <input type="file" id="file" name="productImages" class="image-two"
+                    onchange="previewFileHandler(this, 2)" />
+                </div>
+                <div class="upload-img-box">
+                  <img src="/img/upload.svg" class="3" id="image-section-3" />
+                  <input type="file" id="file" name="productImages" class="image-three"
+                    onchange="previewFileHandler(this, 3)" />
+                </div>
+                <div class="upload-img-box">
+                  <img src="/img/upload.svg" class="4" id="image-section-4" />
+                  <input type="file" id="file" name="productImages" class="image-four"
+                    onchange="previewFileHandler(this, 4)" />
+                </div>
+                <div class="upload-img-box">
+                  <img src="/img/upload.svg" class="5" id="image-section-5" />
+                  <input type="file" id="file" name="productImages" class="image-five"
+                    onchange="previewFileHandler(this, 5)" />
+                </div>
+                <input name="restaurantIid" class="restaurant-id" hidden />
+              </div>
+            </div>
+
+            <div class="operation-buttons">
+              <button class="btn btn-danger" id="cancel-btn">Cancel</button>
+              <button type="submit" class="btn btn-primary" id="create-btn">
+                Create
+              </button>
+            </div>
+          </form>
+</div>
+    <script type="text/javascript" src="/js/newproduct.js"></script>
+</body>
+
+
+<%- include('includes/footer') %> -->
+
+<%- include('includes/header') %>
+
+<link rel="stylesheet" href="/css/newproduct.css" />
+
+<body>
+  <div class="products-container">
+    <form
+      action="/admin/product/create"
+      method="POST"
+      enctype="multipart/form-data"
+      onsubmit="return validateForm()"
+      class="product-form"
+    >
+      <!-- ========================= -->
+      <!-- HEADER -->
+      <!-- ========================= -->
+
+      <div class="page-header">
+        <div>
+          <span class="page-eyebrow"> PRODUCT MANAGEMENT </span>
+
+          <h1>Create Product</h1>
+
+          <p>Add a new product to your TechForge inventory.</p>
+        </div>
+
+        <a href="/admin/product/all" class="back-btn"> Products </a>
+      </div>
+
+      <!-- ========================= -->
+      <!-- BASIC INFORMATION -->
+      <!-- ========================= -->
+
+      <section class="form-section">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="section-number"> 01 </span>
+
+            <div>
+              <h2>Basic Information</h2>
+
+              <p>Main product information</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <!-- PRODUCT NAME -->
+
+          <div class="form-group full-width">
+            <label for="product-name"> Product Name </label>
+
+            <input
+              id="product-name"
+              type="text"
+              name="productName"
+              class="product-name"
+              placeholder="Enter product name"
+              required
+            />
+          </div>
+
+          <!-- BRAND -->
+
+          <div class="form-group">
+            <label for="product-brand"> Brand </label>
+
+            <input
+              id="product-brand"
+              type="text"
+              name="productBrand"
+              class="product-brand"
+              placeholder="e.g. Apple"
+              required
+            />
+          </div>
+
+          <!-- PRICE -->
+
+          <div class="form-group">
+            <label for="product-price"> Price </label>
+
+            <div class="price-input">
+              <span>₩</span>
+
+              <input
+                id="product-price"
+                type="number"
+                name="productPrice"
+                class="product-price"
+                placeholder="0"
+                min="0"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- STOCK -->
+
+          <div class="form-group">
+            <label for="product-stock"> Stock </label>
+
+            <input
+              id="product-stock"
+              type="number"
+              name="productStock"
+              class="product-stock"
+              placeholder="0"
+              min="0"
+              required
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= -->
+      <!-- CATEGORY / STATUS -->
+      <!-- ========================= -->
+
+      <section class="form-section">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="section-number"> 02 </span>
+
+            <div>
+              <h2>Product Settings</h2>
+
+              <p>Category and availability</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <!-- CATEGORY -->
+
+          <div class="form-group">
+            <label for="product-category"> Category </label>
+
+            <select
+              id="product-category"
+              name="productCategory"
+              class="product-category"
+              required
+            >
+              <option value="" disabled selected>Select category</option>
+
+              <option value="PHONE">Phone</option>
+
+              <option value="LAPTOP">Laptop</option>
+
+              <option value="TABLET">Tablet</option>
+
+              <option value="PC">PC</option>
+
+              <option value="MONITOR">Monitor</option>
+
+              <option value="KEYBOARD">Keyboard</option>
+
+              <option value="MOUSE">Mouse</option>
+
+              <option value="HEADPHONE">Headphone</option>
+
+              <option value="ACCESSORY">Accessory</option>
+
+              <option value="OTHER">Other</option>
+            </select>
+          </div>
+
+          <!-- STATUS -->
+
+          <div class="form-group">
+            <label for="product-status"> Product Status </label>
+
+            <select
+              id="product-status"
+              name="productStatus"
+              class="product-status"
+              required
+            >
+              <option value="PAUSE">Pause</option>
+
+              <option value="PROCESS" selected>Process</option>
+
+              <option value="SOLD_OUT">Sold Out</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= -->
+      <!-- SPECIFICATIONS -->
+      <!-- ========================= -->
+
+      <section class="form-section">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="section-number"> 03 </span>
+
+            <div>
+              <h2>Specifications</h2>
+
+              <p>Technical specifications of the product</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="specifications-container" class="specifications-container">
+          <div class="specification-row">
+            <input
+              type="text"
+              name="specificationKey[]"
+              placeholder="Specification"
+              class="spec-key"
+            />
+
+            <input
+              type="text"
+              name="specificationValue[]"
+              placeholder="Value"
+              class="spec-value"
+            />
+
+            <button
+              type="button"
+              class="remove-spec"
+              onclick="removeSpecification(this)"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+
+        <button type="button" class="add-spec-btn" onclick="addSpecification()">
+          + Add Specification
+        </button>
+      </section>
+
+      <!-- ========================= -->
+      <!-- IMAGES -->
+      <!-- ========================= -->
+
+      <section class="form-section">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="section-number"> 04 </span>
+
+            <div>
+              <h2>Product Images</h2>
+
+              <p>Upload up to 5 product images</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="image-upload-grid">
+          <% for(let i = 1; i <= 5; i++) { %>
+
+          <div class="image-upload">
+            <img
+              src="/img/upload.svg"
+              id="image-section-<%= i %>"
+              alt="Product image"
+            />
+
+            <div class="upload-overlay">
+              <span>+</span>
+
+              <small> Upload </small>
+            </div>
+
+            <input type="file" name="productImages" class="image-input"
+            data-order="<%= i %>" accept="image/jpeg,image/png"
+            onchange="previewFileHandler(this)" <%= i === 1 ? "required" : "" %>
+            >
+          </div>
+
+          <% } %>
+        </div>
+
+        <p class="upload-hint">JPG, JPEG or PNG · Maximum 5 images</p>
+      </section>
+
+      <!-- ========================= -->
+      <!-- DESCRIPTION -->
+      <!-- ========================= -->
+
+      <section class="form-section">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="section-number"> 05 </span>
+
+            <div>
+              <h2>Description</h2>
+
+              <p>Tell customers about this product</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="product-description"> Product Description </label>
+
+          <textarea
+            id="product-description"
+            name="productDesc"
+            class="product-desc"
+            placeholder="Write a detailed description of the product..."
+            required
+          ></textarea>
+        </div>
+      </section>
+
+      <!-- ========================= -->
+      <!-- ACTIONS -->
+      <!-- ========================= -->
+
+      <div class="form-actions">
+        <a href="/admin/product/all" class="cancel-btn"> Cancel </a>
+
+        <button
+          type="submit"
+          class="create-btn"
+          id="create-btn"
+          onclick="window.location.href = '/admin/product/all'"
+        >
+          Create Product
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <script src="/js/newproduct.js"></script>
+</body>
+
+<%- include('includes/footer') %>
