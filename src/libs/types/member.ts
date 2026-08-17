@@ -56,3 +56,9 @@ export interface AdminRequest extends Request {
   file: Express.Multer.File;
   files: Express.Multer.File[];
 }
+
+export interface ExtentedRequest extends Request {
+  member: Member;
+  file: Express.Multer.File;
+  files: Express.Multer.File[];
+}
