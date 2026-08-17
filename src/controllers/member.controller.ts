@@ -3,7 +3,7 @@ import { T } from "../libs/types/common";
 import MemberService from "../models/Member.service";
 import { LoginInput, Member, MemberInput } from "../libs/types/member";
 import { MemberType } from "../libs/enums/member.enum";
-import Errors, { HttpCode } from "../libs/types/Errors";
+import Errors, { HttpCode, Message } from "../libs/types/Errors";
 import AuthService from "../models/Auth.service";
 import { AUTH_TIMER } from "../libs/types/config";
 
@@ -45,6 +45,23 @@ memberController.login = async (req: Request, res: Response) => {
     res.status(HttpCode.OK).json({ member: result, accessToken: token });
   } catch (err) {
     console.log("Error, login", err);
+    if (err instanceof Errors) res.status(err.code).json(err);
+    else res.status(Errors.standard.code).json(Errors.standard);
+  }
+};
+
+memberController.verifyAuth = async (req: Request, res: Response) => {
+  try {
+    let member = null;
+    const token = req.cookies["accessToken"];
+    if (token) member = await authServive.checkAuth(token);
+
+    if (!member)
+      throw new Errors(HttpCode.UNAUTHORIZED, Message.NOT_AUTHENTICATED);
+
+    res.status(HttpCode.OK).json({ member: member });
+  } catch (err) {
+    console.log("Error, verifyAuth", err);
     if (err instanceof Errors) res.status(err.code).json(err);
     else res.status(Errors.standard.code).json(Errors.standard);
   }
