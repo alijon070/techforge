@@ -27,6 +27,16 @@ router.post(
 /** Product **/
 
 router.get("/product/all", productController.getProducts);
+router.get(
+  "/product/:id",
+  memberController.retrieveAuth,
+  productController.getProduct
+);
+router.post(
+  "/product/like/:id",
+  memberController.retrieveAuth,
+  productController.productLike
+);
 
 /**  **/
 
