@@ -4,8 +4,10 @@ import MemberService from "../models/Member.service";
 import { LoginInput, Member, MemberInput } from "../libs/types/member";
 import { MemberType } from "../libs/enums/member.enum";
 import Errors from "../libs/types/Errors";
+import AuthService from "../models/Auth.service";
 
 const memberService = new MemberService();
+const authServive = new AuthService();
 const memberController: T = {};
 
 memberController.signup = async (req: Request, res: Response) => {
@@ -13,7 +15,8 @@ memberController.signup = async (req: Request, res: Response) => {
     console.log("signup");
     console.log("body:", req.body);
     const input: MemberInput = req.body,
-      result: Member = await memberService.signup(input);
+      result: Member = await memberService.signup(input),
+      token = await authServive.createToken(result);
 
     res.json({ member: result });
   } catch (err) {
@@ -27,7 +30,9 @@ memberController.login = async (req: Request, res: Response) => {
   try {
     console.log("login");
     const input: LoginInput = req.body,
-      result: Member = await memberService.login(input);
+      result: Member = await memberService.login(input),
+      token = await authServive.createToken(result);
+    console.log(token);
 
     res.json({ member: result });
   } catch (err) {
