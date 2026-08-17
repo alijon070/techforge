@@ -1,4 +1,4 @@
-import { MemberType } from "../libs/enums/member.enum";
+import { MemberStatus, MemberType } from "../libs/enums/member.enum";
 import { shapeIntoMongooseObjectId } from "../libs/types/config";
 import Errors, { HttpCode, Message } from "../libs/types/Errors";
 import {
@@ -36,14 +36,14 @@ class MemberService {
     const member = await this.memberModel
       .findOne(
         { memberNick: input.memberNick },
-        { memberPassword: 1, memberNick: 1 },
+        { memberPassword: 1, memberNick: 1 }
       )
       .exec();
     if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
 
     const isMatch = await bcrypt.compare(
       input.memberPassword,
-      member.memberPassword,
+      member.memberPassword
     );
     if (!isMatch) {
       throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
@@ -52,6 +52,40 @@ class MemberService {
     const result = await this.memberModel.findById(member._id).lean().exec();
     if (!result)
       throw new Errors(HttpCode.NOT_FOUND, Message.SOMETHING_WENT_WRONG);
+
+    return result;
+  }
+
+  public async getMemberDetail(member: Member): Promise<Member> {
+    const memberId = shapeIntoMongooseObjectId(member._id);
+    const result = await this.memberModel
+      .findOne({
+        _id: memberId,
+        memberStatus: MemberStatus.ACTIVE,
+      })
+      .exec();
+
+    if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+
+    return result;
+  }
+
+  public async updateMember(
+    member: Member,
+    input: MemberUpdateInput
+  ): Promise<Member> {
+    const memberId = shapeIntoMongooseObjectId(member._id);
+    const result = await this.memberModel
+      .findOneAndUpdate(
+        {
+          _id: memberId,
+        },
+        input,
+        { returnDocument: "after" }
+      )
+      .exec();
+
+    if (!result) throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
 
     return result;
   }
@@ -83,14 +117,14 @@ class MemberService {
     const member = await this.memberModel
       .findOne(
         { memberNick: input.memberNick },
-        { memberPassword: 1, memberNick: 1 },
+        { memberPassword: 1, memberNick: 1 }
       )
       .exec();
     if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
 
     const isMatch = await bcrypt.compare(
       input.memberPassword,
-      member.memberPassword,
+      member.memberPassword
     );
     if (!isMatch) {
       throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
