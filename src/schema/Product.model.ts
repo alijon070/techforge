@@ -1,5 +1,9 @@
 import mongoose, { Schema } from "mongoose";
-import { ProductCategory, ProductStatus } from "../libs/enums/product.enum";
+import {
+  ProductBrand,
+  ProductCategory,
+  ProductStatus,
+} from "../libs/enums/product.enum";
 import { Product } from "../libs/types/product";
 
 const productSchema = new Schema<Product>(
@@ -27,8 +31,13 @@ const productSchema = new Schema<Product>(
 
     productBrand: {
       type: String,
+      enum: ProductBrand,
       required: true,
-      trim: true,
+    },
+
+    productPoints: {
+      type: Number,
+      default: 0,
     },
 
     productCategory: {
@@ -64,7 +73,7 @@ const productSchema = new Schema<Product>(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 export default mongoose.model<Product>("Products", productSchema);

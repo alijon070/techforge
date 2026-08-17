@@ -19,3 +19,13 @@ export enum ProductCategory {
   MOUSE = "MOUSE",
   HEADSET = "HEADSET",
 }
+
+export enum ProductBrand {
+  ASUS = "ASUS",
+  MSI = "MSI",
+  SAMSUNG = "SAMSUNG",
+  APPLE = "APPLE",
+  AMD = "AMD",
+  LOGITECH = "LOGITECH",
+  CORSAIR = "CORSAIR",
+}

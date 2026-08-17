@@ -1,13 +1,52 @@
 import { Request, Response } from "express";
 import { T } from "../libs/types/common";
 import Errors, { HttpCode, Message } from "../libs/types/Errors";
-import { ProductInput } from "../libs/types/product";
+import { ProductInput, ProductInquiry } from "../libs/types/product";
 import ProductService from "../models/Product.service";
 import { AdminRequest } from "../libs/types/member";
+import { ProductBrand, ProductCategory } from "../libs/enums/product.enum";
 
 const productService = new ProductService();
 const productController: T = {};
 
+/** SPA **/
+
+productController.getProducts = async (req: Request, res: Response) => {
+  try {
+    console.log("getProducts");
+    const {
+      page,
+      limit,
+      order,
+      productCategory,
+      productBrand,
+      search,
+      minPrice,
+      maxPrice,
+    } = req.query;
+
+    const inquiry: ProductInquiry = {
+      order: String(order),
+      page: Number(page),
+      limit: Number(limit),
+    };
+
+    if (productCategory)
+      inquiry.productCategory = productCategory as ProductCategory;
+    if (productBrand) inquiry.productBrand = productBrand as ProductBrand;
+    if (search) inquiry.search = String(search);
+    if (minPrice) inquiry.minPrice = Number(minPrice);
+    if (maxPrice) inquiry.maxPrice = Number(maxPrice);
+
+    const result = await productService.getProducts(inquiry);
+
+    res.status(HttpCode.OK).json(result);
+  } catch (err) {
+    console.log("Error, getProducts", err);
+    if (err instanceof Errors) res.status(err.code).json(err);
+    else res.status(Errors.standard.code).json(Errors.standard);
+  }
+};
 /** SSR **/
 
 productController.getAllProduct = async (req: Request, res: Response) => {

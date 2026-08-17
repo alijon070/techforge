@@ -1,8 +1,11 @@
+import { ProductStatus } from "../libs/enums/product.enum";
+import { T } from "../libs/types/common";
 import { shapeIntoMongooseObjectId } from "../libs/types/config";
 import Errors, { HttpCode, Message } from "../libs/types/Errors";
 import {
   Product,
   ProductInput,
+  ProductInquiry,
   ProductUpdateInput,
 } from "../libs/types/product";
 import ProductModel from "../schema/Product.model";
@@ -13,6 +16,48 @@ class ProductService {
     this.productModel = ProductModel;
   }
   /** SPA **/
+
+  public async getProducts(inquiry: ProductInquiry): Promise<Product[]> {
+    console.log("inquiry:", inquiry);
+
+    const match: T = { productStatus: ProductStatus.PROCESS };
+    if (inquiry.productCategory)
+      match.productCategory = inquiry.productCategory;
+
+    if (inquiry.productBrand) match.productBrand = inquiry.productBrand;
+
+    if (inquiry.search)
+      match.productName = { $regex: inquiry.search, $options: "i" };
+
+    if (inquiry.minPrice !== undefined || inquiry.maxPrice !== undefined) {
+      match.productPrice = {};
+      if (inquiry.minPrice !== undefined)
+        match.productPrice.$gte = inquiry.minPrice;
+      if (inquiry.maxPrice !== undefined)
+        match.productPrice.$lte = inquiry.maxPrice;
+    }
+
+    const sort: T =
+      inquiry.order === "productPrice"
+        ? {
+            [inquiry.order]: 1,
+          }
+        : { [inquiry.order]: -1 };
+
+    const result = await this.productModel
+      .aggregate([
+        { $match: match },
+        { $sort: sort },
+        { $skip: (inquiry.page - 1) * inquiry.limit },
+        { $limit: inquiry.limit },
+      ])
+      .exec();
+
+    if (!result.length)
+      throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+
+    return result;
+  }
 
   /** SSR **/
 
