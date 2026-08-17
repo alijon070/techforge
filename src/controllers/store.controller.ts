@@ -50,7 +50,7 @@ storeController.processSignup = async (req: AdminRequest, res: Response) => {
     const message =
       err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
     res.send(
-      `<script> alert("${message}"); window.lacation.replace('admin/signup) </script>`,
+      `<script> alert("${message}"); window.location.replace('/admin/signup') </script>`
     );
   }
 };
@@ -80,7 +80,7 @@ storeController.processLogin = async (req: AdminRequest, res: Response) => {
     const message =
       err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
     res.send(
-      `<script> alert("${message}"); window.lacation.replace('admin/login) </script>`,
+      `<script> alert("${message}"); window.location.replace("/admin/login") </script>`
     );
   }
 };
@@ -135,7 +135,7 @@ storeController.checkAuthSession = async (req: AdminRequest, res: Response) => {
 storeController.verifyRestaurant = async (
   req: AdminRequest,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   console.log("verifyRestaurant");
   if (req.session?.member?.memberType === MemberType.STORE) {
@@ -144,7 +144,7 @@ storeController.verifyRestaurant = async (
   } else {
     const message = Message.NOT_AUTHENTICATED;
     res.send(
-      `<script> alert("${message}"); window.lacation.replace('admin/login) </script>`,
+      `<script> alert("${message}"); window.location.replace('/admin/login') </script>`
     );
   }
 };

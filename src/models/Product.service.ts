@@ -100,6 +100,35 @@ class ProductService {
     return result;
   }
 
+  public async decreaseProductStock(
+    id: ObjectId,
+    quantity: number
+  ): Promise<Product> {
+    const productId = shapeIntoMongooseObjectId(id);
+    const result = await this.productModel
+      .findOneAndUpdate(
+        {
+          _id: productId,
+        },
+        {
+          $inc: {
+            productStock: -quantity,
+            productPoints: 1,
+          },
+        },
+        {
+          returnDocument: "after",
+        }
+      )
+      .exec();
+
+    if (!result) {
+      throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
+    }
+
+    return result;
+  }
+
   /** SSR **/
 
   public async getAllProduct(): Promise<Product[]> {

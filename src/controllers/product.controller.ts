@@ -112,6 +112,7 @@ productController.createNewProduct = async (
 ) => {
   try {
     console.log("createNewProduct");
+    console.log(req.body);
     if (!req.files?.length)
       throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG);
     console.log("body:", req.body);
@@ -131,7 +132,7 @@ productController.createNewProduct = async (
     const message =
       err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
     res.send(
-      `<script> alert("${message}"); window.location.replace('admin/product/all') </script>`
+      `<script> alert("${message}"); window.location.replace('/admin/product/all') </script>`
     );
   }
 };
