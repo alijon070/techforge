@@ -4,7 +4,7 @@ import uploader from "./libs/utils/uploader";
 const router = express.Router();
 
 /** Member **/
-
+router.get("/member/store", memberController.getStore);
 router.post("/member/login", memberController.login);
 router.post("/member/signup", memberController.signup);
 router.post(
