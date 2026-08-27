@@ -1,155 +1,262 @@
+/* =========================================================
+   USERS PAGE
+========================================================= */
+
 .users-container {
-  position: relative;
-  width: auto;
-  height: auto;
-  min-width: 100%;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #030711;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #06182b 0%, #071d34 100%);
+  color: #111827;
+  padding-bottom: 60px;
 }
 
-.users-container::before {
-  content: "";
+/* =========================================================
+   MAIN FRAME
+========================================================= */
 
-  position: fixed;
-  inset: -30%;
-
-  z-index: 0;
-  pointer-events: none;
-
-  background: linear-gradient(-45deg, #071a30, #0b2947, #030711, #071426);
-
-  background-size: 200% 200%;
-
-  animation: gradient 15s ease infinite;
-  -webkit-animation: gradient 15s ease infinite;
-  animation: gradient 15s ease infinite;
-  -webkit-animation: gradient 15s ease infinite;
-  background-size: 200% 200%;
-}
-
-.users-container a {
-  text-decoration: none;
-  color: #000000;
-}
-
-.users-container .nav-item a {
-  color: #e3c08d;
-}
-
-.users-container .nav-item a.disabled {
-  color: #898071;
-}
-
-.users-container .navigation-menu {
-  position: absolute;
-  z-index: 10000;
-  top: 1%;
-  color: #efefee;
-  font-size: 40px;
-  font-family: monospace;
-}
-
-.users-container .users-frame {
-  position: relative;
-  padding-bottom: 80px;
+.users-frame {
   width: 100%;
-  height: auto;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding-top: 20px;
 }
 
-.users-container .users-frame .board {
-  position: relative;
-  margin-top: 100px;
-  width: 1320px;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.users-container .board .dishes-table {
-  position: relative;
+.board {
   width: 100%;
-  height: auto;
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-.users-container .board .user-table {
-  position: relative;
-  width: 85%;
-  height: auto;
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* =========================================================
+   TABLE CONTAINER
+========================================================= */
+
+.user-table {
+  width: 100%;
+  margin: 0 auto;
 }
 
-.users-container .header-name {
-  font-family: "Source Serif Pro";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 30px;
-  line-height: 25px;
-  color: #ffffff;
-}
+/* =========================================================
+   PAGE TITLE
+========================================================= */
 
-.users-container select:focus {
-  min-width: 90%;
-  width: auto;
-}
+.header-name {
+  display: block;
 
-.users-container .spec-select {
-  position: relative;
-  padding: 0px 7px;
-  /*width: 100%;*/
-  height: 27px;
-  background: #ffffff;
-  border: 1px solid #dddddd;
-  border-radius: 8px;
-  font-family: "GT Walsheim Pro";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 26px;
-  color: #4f547b;
-}
+  margin-bottom: 26px;
 
-.users-container table td,
-table th {
   text-align: center;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 30px;
+  font-weight: 700;
+
+  color: #ffffff;
+
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.user-table table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  table-layout: fixed;
+
+  background: #ffffff;
+
+  border: none;
+}
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.user-table thead {
+  background: #e9edf2;
+}
+
+.user-table thead th {
+  height: 48px;
+
+  padding: 0 14px;
+
+  background: #e9edf2;
+
+  color: #4b5563;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  text-align: center;
+
   vertical-align: middle;
+
+  border: 1px solid #d7dce2;
 }
 
-/* Background animation */
-@-webkit-keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
+/* =========================================================
+   TABLE BODY
+========================================================= */
+
+.user-table tbody {
+  background: #ffffff !important;
+}
+
+.user-table tbody tr {
+  height: 48px;
+
+  transition: background 0.15s ease;
+}
+
+.user-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.user-table tbody td {
+  height: 48px;
+
+  padding: 0 14px;
+
+  background: #ffffff;
+
+  color: #171717;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 16px;
+  font-weight: 400;
+
+  text-align: center;
+
+  vertical-align: middle;
+
+  border: 1px solid #d7dce2;
+}
+
+/* =========================================================
+   COLUMN WIDTHS
+========================================================= */
+
+.user-table th:nth-child(1),
+.user-table td:nth-child(1) {
+  width: 7%;
+}
+
+.user-table th:nth-child(2),
+.user-table td:nth-child(2) {
+  width: 27%;
+}
+
+.user-table th:nth-child(3),
+.user-table td:nth-child(3) {
+  width: 28%;
+}
+
+.user-table th:nth-child(4),
+.user-table td:nth-child(4) {
+  width: 25%;
+}
+
+.user-table th:nth-child(5),
+.user-table td:nth-child(5) {
+  width: 13%;
+}
+
+/* =========================================================
+   STATUS SELECT
+========================================================= */
+
+.member-status,
+.spec-select {
+  width: 94px;
+  height: 28px;
+
+  padding: 2px 8px;
+
+  background: #ffffff;
+
+  border: 1px solid #cfd5dc;
+  border-radius: 8px;
+
+  color: #26324f;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 14px;
+
+  outline: none;
+
+  cursor: pointer;
+}
+
+.member-status:hover,
+.spec-select:hover {
+  border-color: #9aa4b2;
+}
+
+.member-status:focus,
+.spec-select:focus {
+  border-color: #1d70d6;
+
+  box-shadow: 0 0 0 2px rgba(29, 112, 214, 0.12);
+}
+
+/* =========================================================
+   STATUS COLORS
+========================================================= */
+
+.member-status option {
+  background: #ffffff;
+  color: #26324f;
+}
+
+/* =========================================================
+   NAVBAR COMPATIBILITY
+========================================================= */
+
+.users-container .navbar,
+.users-container header {
+  width: 100%;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1200px) {
+  .board {
+    max-width: calc(100% - 80px);
   }
 }
 
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
+@media (max-width: 900px) {
+  .board {
+    max-width: calc(100% - 40px);
   }
-  50% {
-    background-position: 100% 50%;
+
+  .user-table {
+    overflow-x: auto;
   }
-  100% {
-    background-position: 0% 50%;
+
+  .user-table table {
+    min-width: 850px;
+  }
+
+  .header-name {
+    font-size: 27px;
+  }
+}
+
+@media (max-width: 600px) {
+  .board {
+    max-width: calc(100% - 20px);
+  }
+
+  .header-name {
+    font-size: 24px;
   }
 }

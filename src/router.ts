@@ -33,10 +33,39 @@ router.get(
   memberController.retrieveAuth,
   productController.getProduct
 );
+// router.post(
+//   "/product/like/:id",
+//   memberController.verifyAuth,
+//   productController.productLike
+// );
+
 router.post(
   "/product/like/:id",
-  memberController.retrieveAuth,
+  (req, res, next) => {
+    console.log("🔥 LIKE ROUTE HIT");
+    console.log("ID:", req.params.id);
+    next();
+  },
+  memberController.verifyAuth,
   productController.productLike
+);
+
+router.post(
+  "/products/like-status",
+  memberController.verifyAuth,
+  productController.getProductsLikeStatus
+);
+
+router.post(
+  "/products/like-status/:id",
+  memberController.verifyAuth,
+  productController.getProductsLikeStatus
+);
+
+router.get(
+  "/member/wishlist",
+  memberController.verifyAuth,
+  productController.getMyWishlist
 );
 
 /**  Order **/

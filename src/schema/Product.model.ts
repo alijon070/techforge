@@ -24,6 +24,11 @@ const productSchema = new Schema<Product>(
       required: true,
     },
 
+    productOldPrice: {
+      type: Number,
+      default: 0,
+    },
+
     productStock: {
       type: Number,
       required: true,
@@ -58,7 +63,7 @@ const productSchema = new Schema<Product>(
     productSpecifications: {
       type: Schema.Types.Mixed,
       required: true,
-      default: {},
+      default: { key: String, value: String },
     },
 
     productViews: {
@@ -70,10 +75,14 @@ const productSchema = new Schema<Product>(
       type: Number,
       default: 0,
     },
+
+    productLiked: {
+      type: Boolean,
+    },
   },
   {
     timestamps: true,
   }
 );
 
-export default mongoose.model<Product>("Products", productSchema);
+export default mongoose.model<Product>("Product", productSchema);

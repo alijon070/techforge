@@ -66,6 +66,25 @@
             />
           </div>
 
+          <div class="form-group">
+            <label for="product-price">
+              Old Price (leave empty if not on sale)
+            </label>
+
+            <div class="price-input">
+              <span>₩</span>
+
+              <input
+                id="product-price"
+                type="number"
+                name="productOldPrice"
+                class="product-price"
+                placeholder="0"
+                min="0"
+              />
+            </div>
+          </div>
+
           <!-- BRAND -->
 
           <div class="form-group">
@@ -76,7 +95,7 @@
               type="text"
               name="productBrand"
               class="product-brand"
-              placeholder="e.g. Apple"
+              placeholder="e.g. APPLE"
               required
             />
           </div>

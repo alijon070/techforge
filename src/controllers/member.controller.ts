@@ -8,7 +8,6 @@ import {
   MemberInput,
   MemberUpdateInput,
 } from "../libs/types/member";
-import { MemberType } from "../libs/enums/member.enum";
 import Errors, { HttpCode, Message } from "../libs/types/Errors";
 import AuthService from "../models/Auth.service";
 import { AUTH_TIMER } from "../libs/types/config";
@@ -99,10 +98,25 @@ memberController.getMemberDetail = async (
 
 memberController.updateMember = async (req: ExtentedRequest, res: Response) => {
   try {
-    console.log("updateMember");
+    console.log("\n========== BACKEND UPDATE MEMBER ==========");
+
+    console.log("req.body:", req.body);
+    console.log("req.file:", req.file);
+    console.log("req.member:", req.member);
+
+    if (req.file) {
+      console.log("FILE PATH:", req.file.path);
+      console.log("FILE NAME:", req.file.filename);
+      console.log("FILE ORIGINAL NAME:", req.file.originalname);
+      console.log("FILE MIME:", req.file.mimetype);
+    }
     const input: MemberUpdateInput = req.body;
-    if (req.file) input.memberImage = req.file.path;
+    if (req.file) {
+      input.memberImage = req.file.path.replace(/\\/g, "/");
+    }
     const result = await memberService.updateMember(req.member, input);
+
+    console.log("UPDATED MEMBER:", result);
 
     res.status(HttpCode.OK).json(result);
   } catch (err) {

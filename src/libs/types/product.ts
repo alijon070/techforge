@@ -10,6 +10,7 @@ export interface Product {
   productStatus: ProductStatus;
   productName: string;
   productPrice: number;
+  productOldPrice: number | null;
   productStock: number;
   productPoints: number;
   productBrand: ProductBrand;
@@ -19,6 +20,7 @@ export interface Product {
   productSpecifications: Record<string, any>;
   productViews: number;
   productLikes: number;
+  productLiked?: boolean;
 }
 
 export interface ProductInput {
@@ -26,6 +28,7 @@ export interface ProductInput {
   productStatus?: ProductStatus;
   productName: string;
   productPrice: number;
+  productOldPrice?: number;
   productStock: number;
   productBrand: ProductBrand;
   productCategory: ProductCategory;
@@ -41,6 +44,7 @@ export interface ProductUpdateInput {
   productStatus?: ProductStatus;
   productName?: string;
   productPrice?: number;
+  productOldPrice?: number;
   productStock?: number;
   productBrand?: ProductBrand;
   productCategory?: ProductCategory;
@@ -59,5 +63,7 @@ export interface ProductInquiry {
   maxPrice?: number;
   productCategory?: ProductCategory;
   productBrand?: ProductBrand;
+  productOldPrice?: number;
   search?: string;
+  onlyDeals?: boolean;
 }

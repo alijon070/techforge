@@ -35,7 +35,7 @@ class OrderService {
     const amount = input.reduce((accumulator: number, item: OrderItemInput) => {
       return accumulator + item.itemPrice * item.itemQuantity;
     }, 0);
-    const delivery = amount < 249 ? 20 : 0;
+    const delivery = amount < 450000 ? 50000 : 0;
 
     try {
       const newOrder: Order = await this.orderModel.create({

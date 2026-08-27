@@ -12,18 +12,26 @@ import {
 import ProductModel from "../schema/Product.model";
 import ViewService from "./View.service";
 import { ViewInput } from "../libs/types/view";
+import LikeModel from "../schema/Like.model";
 
 class ProductService {
   private readonly productModel;
+  private readonly likeModel;
   public viewService;
   constructor() {
     this.productModel = ProductModel;
+    this.likeModel = LikeModel;
+
     this.viewService = new ViewService();
   }
   /** SPA **/
 
-  public async getProducts(inquiry: ProductInquiry): Promise<Product[]> {
+  public async getProducts(
+    memberId: ObjectId,
+    inquiry: ProductInquiry
+  ): Promise<Product[]> {
     console.log("inquiry:", inquiry);
+    const memberID = shapeIntoMongooseObjectId(memberId);
 
     const match: T = { productStatus: ProductStatus.PROCESS };
     if (inquiry.productCategory)
@@ -42,6 +50,11 @@ class ProductService {
         match.productPrice.$lte = inquiry.maxPrice;
     }
 
+    if (inquiry.onlyDeals) {
+      match.productOldPrice = { $exists: true, $ne: null, $gt: 0 };
+      match.$expr = { $gt: ["$productOldPrice", "$productPrice"] };
+    }
+
     const sort: T =
       inquiry.order === "productPrice"
         ? {
@@ -58,8 +71,24 @@ class ProductService {
       ])
       .exec();
 
-    if (!result.length)
-      throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+    if (!memberID) {
+      return result.map((p: any) => ({ ...p, meLiked: false }));
+    }
+
+    const productIds = result.map((p: any) => p._id);
+    const likes = await this.likeModel.find({
+      memberId,
+      likeRefId: { $in: productIds },
+    });
+    const likedIds = new Set(likes.map((l) => String(l.likeRefId)));
+
+    return result.map((p) => ({
+      ...p,
+      meLiked: likedIds.has(String(p._id)),
+    }));
+
+    // if (!result.length)
+    //   throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
 
     return result;
   }
@@ -144,6 +173,14 @@ class ProductService {
 
   public async createNewProduct(input: ProductInput): Promise<Product> {
     try {
+      if (
+        input.productOldPrice &&
+        input.productOldPrice <= input.productPrice
+      ) {
+        throw new Error(
+          "Old price must be higher than the current price to count as a deal"
+        );
+      }
       const product = await this.productModel.create(input);
       return product;
     } catch (err) {
@@ -158,6 +195,20 @@ class ProductService {
   ): Promise<Product> {
     try {
       const productId = shapeIntoMongooseObjectId(id);
+      if (input.productOldPrice) {
+        const currentPrice =
+          input.productPrice ??
+          (await this.productModel.findById(productId).lean())?.productPrice;
+
+        if (
+          currentPrice !== undefined &&
+          input.productOldPrice <= currentPrice
+        ) {
+          throw new Error(
+            "Old price must be higher than the current price to count as a deal"
+          );
+        }
+      }
       const result = await this.productModel
         .findOneAndUpdate({ _id: productId }, input, {
           returnDocument: "after",

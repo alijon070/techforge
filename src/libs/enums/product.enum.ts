@@ -18,6 +18,8 @@ export enum ProductCategory {
   KEYBOARD = "KEYBOARD",
   MOUSE = "MOUSE",
   HEADSET = "HEADSET",
+  PSU = "PSU",
+  CASE = "CASE",
 }
 
 export enum ProductBrand {
@@ -28,4 +30,15 @@ export enum ProductBrand {
   AMD = "AMD",
   LOGITECH = "LOGITECH",
   CORSAIR = "CORSAIR",
+  LENOVO = "LENOVO",
+  ACER = "ACER",
+  INTEL = "INTEL",
+  GIGABYTE = "GIGABYTE",
+  KINGSTON = "KINGSTON",
+  GSKILL = "GSKILL",
+  SEASONIC = "SEASONIC",
+  BE_QUIET = "BE_QUIET",
+  NZXT = "NZXT",
+  LIAN_LI = "LIAN_LI",
+  FRACTAL = "FRACTAL",
 }

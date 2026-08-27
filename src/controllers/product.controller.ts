@@ -13,9 +13,13 @@ const productController: T = {};
 
 /** SPA **/
 
-productController.getProducts = async (req: Request, res: Response) => {
+productController.getProducts = async (req: ExtentedRequest, res: Response) => {
   try {
     console.log("getProducts");
+    const onlyDeals = req.query.onlyDeals === "true";
+
+    const memberId = req.member?._id ?? null;
+
     const {
       page,
       limit,
@@ -39,8 +43,9 @@ productController.getProducts = async (req: Request, res: Response) => {
     if (search) inquiry.search = String(search);
     if (minPrice) inquiry.minPrice = Number(minPrice);
     if (maxPrice) inquiry.maxPrice = Number(maxPrice);
+    if (onlyDeals) inquiry.onlyDeals = Boolean(onlyDeals);
 
-    const result = await productService.getProducts(inquiry);
+    const result = await productService.getProducts(memberId, inquiry);
 
     res.status(HttpCode.OK).json(result);
   } catch (err) {
@@ -81,6 +86,89 @@ productController.productLike = async (req: ExtentedRequest, res: Response) => {
     else res.status(Errors.standard.code).json(Errors.standard);
   }
 };
+
+productController.checkProductLike = async (
+  req: ExtentedRequest,
+  res: Response
+) => {
+  try {
+    if (!req.member) {
+      throw new Errors(HttpCode.UNAUTHORIZED, Message.NOT_AUTHENTICATED);
+    }
+
+    const { id } = req.params;
+
+    const liked = await likeService.checkProductLike(req.member._id, id);
+
+    res.status(HttpCode.OK).json({ liked });
+  } catch (err) {
+    console.log("Error, checkProductLike", err);
+
+    if (err instanceof Errors) {
+      res.status(err.code).json(err);
+    } else {
+      res.status(Errors.standard.code).json(Errors.standard);
+    }
+  }
+};
+
+productController.getProductsLikeStatus = async (
+  req: ExtentedRequest,
+  res: Response
+) => {
+  try {
+    if (!req.member) {
+      throw new Errors(HttpCode.UNAUTHORIZED, Message.NOT_AUTHENTICATED);
+    }
+
+    const { ids } = req.body;
+
+    if (!Array.isArray(ids)) {
+      throw new Errors(HttpCode.BAD_REQUEST, Message.NO_DATA_FOUND);
+    }
+
+    const result = await likeService.getProductsLikeStatus(req.member._id, ids);
+
+    res.status(HttpCode.OK).json(result);
+  } catch (err) {
+    console.log("Error, getProductsLikeStatus", err);
+
+    if (err instanceof Errors) {
+      res.status(err.code).json(err);
+    } else {
+      res.status(Errors.standard.code).json(Errors.standard);
+    }
+  }
+};
+
+productController.getMyWishlist = async (
+  req: ExtentedRequest,
+  res: Response
+) => {
+  try {
+    console.log("========== GET MY WISHLIST CONTROLLER ==========");
+    if (!req.member) {
+      throw new Errors(HttpCode.UNAUTHORIZED, Message.NOT_AUTHENTICATED);
+    }
+
+    const memberId = req.member._id;
+    console.log("Member ID:", req.member._id);
+
+    const result = await likeService.getMyWishlist(memberId);
+    console.log("Wishlist result:", result);
+    console.log("Wishlist count:", result.length);
+
+    res.status(HttpCode.OK).json(result);
+  } catch (err) {
+    console.log("Error, getMyWishlist:", err);
+
+    if (err instanceof Errors) {
+      res.status(err.code).json(err);
+    } else {
+      res.status(Errors.standard.code).json(Errors.standard);
+    }
+  }
+};
 /** SSR **/
 
 productController.getAllProduct = async (req: Request, res: Response) => {
@@ -112,10 +200,10 @@ productController.createNewProduct = async (
 ) => {
   try {
     console.log("createNewProduct");
-    console.log(req.body);
     if (!req.files?.length)
       throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG);
     console.log("body:", req.body);
+
     const product: ProductInput = req.body;
     product.productImages = req.files?.map((ele) => {
       return ele.path;
